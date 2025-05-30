@@ -1,9 +1,8 @@
 {
   "name": "@gajendra-naphade/react-web-guide",
-  "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "A web guide which takes the user to explore your website",
+  "description": "A beautiful and customizable website tour guide component for React applications",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -32,29 +31,29 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gajju44/React-Web-Guide"
+    "url": "git+https://github.com/gajju44/React-Web-Guide.git"
   },
   "bugs": {
     "url": "https://github.com/gajju44/React-Web-Guide/issues"
   },
   "homepage": "https://github.com/gajju44/React-Web-Guide#readme",
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
   "dependencies": {
-    "lucide-react": "^0.511.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "lucide-react": "^0.294.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.25.0",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "@vitejs/plugin-react": "^4.4.1",
-    "autoprefixer": "^10.4.21",
-    "eslint": "^9.25.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "globals": "^16.0.0",
-    "postcss": "^8.5.4",
-    "tailwindcss": "^3.4.17",
-    "vite": "^6.3.5"
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "postcss": "^8.4.27",
+    "tailwindcss": "^3.3.3",
+    "vite": "^4.4.5"
   }
 }

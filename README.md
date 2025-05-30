@@ -16,9 +16,8 @@ A beautiful and customizable website tour guide component for React applications
 ## Installation 📦
 
 ```bash
-npm install react-web-guide
-# or
-yarn add react-web-guide
+npm i @gajendra-naphade/react-web-guide
+
 ```
 
 ## Quick Start 🚀
