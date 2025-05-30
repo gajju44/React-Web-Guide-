@@ -1,0 +1,172 @@
+import React, { useEffect, useState } from 'react';
+import { X, Heart, HeartCrack } from 'lucide-react';
+
+const TourCursor = ({ 
+  x, 
+  y, 
+  isOffScreen,
+  name = "Guide", 
+  color = "#ff6b6b", 
+  message, 
+  isVisible = true, 
+  onClick, 
+  showNext = false,
+  cursorImage = null,
+  messageBoxStyle = {},
+  cursorStyle = {},
+  nextButtonText ,
+  nextButtonContinueText ,
+  nextButtonClassName = "pointer-events-auto bg-gradient-to-r from-purple-500 to-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-95",
+  nextButtonStyle = {}
+}) => {
+  const [messagePosition, setMessagePosition] = useState({ left: false, top: false });
+  const [isHidden, setIsHidden] = useState(false);
+  
+  useEffect(() => {
+    // Message bubble dimensions
+    const messageWidth = 192; // w-48 = 12rem = 192px
+    const messageHeight = 100; // Approximate height including padding and content
+    const cursorOffset = 24; // Distance from cursor to message
+    
+    // Calculate available space in each direction
+    const spaceRight = window.innerWidth - x - cursorOffset;
+    const spaceLeft = x - cursorOffset;
+    const spaceBottom = window.innerHeight - y - cursorOffset;
+    const spaceTop = y - cursorOffset;
+    
+    // Only change position if message would go off-screen
+    const shouldBeOnLeft = spaceRight < messageWidth && spaceLeft > messageWidth;
+    const shouldBeOnTop = spaceBottom < messageHeight && spaceTop > messageHeight;
+    
+    setMessagePosition({
+      left: shouldBeOnLeft,
+      top: shouldBeOnTop
+    });
+  }, [x, y]);
+
+  if (!isVisible) return null;
+  
+  const messageClasses = [
+    "absolute px-3 py-2 rounded-lg text-sm text-gray-800 bg-white shadow-lg border w-48",
+    messagePosition.left ? "right-14" : "left-8",
+    messagePosition.top ? "bottom-6" : "top-6",
+    "transition-all duration-500 ease-in-out"
+  ].join(" ");
+
+  const handleHide = (e) => {
+    e.stopPropagation();
+    setIsHidden(true);
+  };
+
+  const handleContinue = (e) => {
+    e.stopPropagation();
+    setIsHidden(false);
+  };
+  
+  return (
+    <div 
+      className="fixed pointer-events-none z-50"
+      style={{ 
+        left: isHidden ? `${window.innerWidth - 60}px` : `${x}px`,
+        top: isHidden ? `50%` : `${y}px`,
+        transition: 'all 0.5s ease-out',
+        ...cursorStyle
+      }}
+    >
+      {/* Main cursor */}
+      <div className="relative">
+        {cursorImage ? (
+          <img 
+            src={cursorImage} 
+            alt="Custom cursor" 
+            className="w-6 h-6 drop-shadow-lg"
+            style={{
+              filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
+            }}
+          />
+        ) : (
+          <svg 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            className="drop-shadow-lg"
+            style={{
+              filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
+            }}
+          >
+            <path
+              d="M5.65376 12.3673H5.46026L5.31717 12.4976L0.500002 16.8829L0.500002 1.19841L11.7841 12.3673H5.65376Z"
+              fill={color}
+              stroke="white"
+              strokeWidth="2"
+            />
+          </svg>
+        )}
+        
+        {/* Name tag */}
+        <div 
+          className="absolute top-6 -left-4 px-2 py-[1px] rounded-full text-[10px] text-white font-medium whitespace-nowrap shadow-md"
+          style={{ backgroundColor: color }}
+        >
+          {name}
+        </div>
+        
+        {/* Message bubble */}
+        {message && (
+          <>
+            <div 
+              className={messageClasses}
+              style={{
+                ...messageBoxStyle,
+                opacity: isHidden ? 0 : 1,
+                transform: isHidden ? 'translateX(100px)' : 'translateX(0)'
+              }}
+            >
+              <button 
+                onClick={handleHide}
+                title='Pause the tour'
+                className="pointer-events-auto absolute -top-4 -right-4 bg-[#ffffff27] backdrop-blur-2xl rounded-full p-[6px] shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110"
+              >
+                <HeartCrack color='white' fill='red' size={14} />
+              </button>
+              <div className="mb-2">{message}</div>
+              {showNext && !isHidden && (
+                <button 
+                title={ isOffScreen ? nextButtonContinueText : nextButtonText}
+                  onClick={onClick}
+                  className={nextButtonClassName}
+                  style={nextButtonStyle}
+                >
+                  { isOffScreen ? nextButtonContinueText : nextButtonText}
+                </button>
+              )}
+            </div>
+            {/* Heart button - positioned independently */}
+            {isHidden && (
+              <div 
+                className="absolute"
+                style={{
+                  left: messagePosition.left ? 'auto' : 'calc(100% - 0.4rem)',
+                  right: messagePosition.left ? 'calc(100% - 3rem)' : 'auto',
+                  top: '50%',
+                  transform: 'translateY(-50%)'
+                }}
+              >
+                <button 
+                  onClick={handleContinue}
+                  title='Continue the tour'
+                  className="pointer-events-auto bg-[#ffffff27] backdrop-blur-xl rounded-full p-[6px] shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110"
+                >
+                  <Heart size={14} fill='red' color='white' />
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default TourCursor; 

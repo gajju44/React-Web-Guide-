@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+  @keyframes bounce-gentle {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+        .animate-bounce-gentle {
+          animation: bounce-gentle 2s infinite;
+        }
+        
+        @keyframes gentleBob {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-2px); }
+        }
+        
+        @keyframes cursorGlow {
+          0%, 100% { box-shadow: 0 0 5px rgba(255, 107, 107, 0.3); }
+          50% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.6); }
+        }
