@@ -47,9 +47,9 @@ const TourCursor = ({
   if (!isVisible) return null;
   
   const messageClasses = [
-    "absolute px-3 py-2 rounded-lg text-sm text-gray-800 bg-white shadow-lg border w-48",
+    "absolute px-2 md:px-3 py-2 rounded-lg text-[10px] md:text-sm text-gray-800 bg-white shadow-lg border w-24 md:w-48",
     messagePosition.left ? "right-14" : "left-8",
-    messagePosition.top ? "bottom-6" : "top-6",
+    messagePosition.top && !messagePosition.left ? "bottom-2 left-6" : "top-6",
     "transition-all duration-500 ease-in-out"
   ].join(" ");
 
@@ -65,7 +65,7 @@ const TourCursor = ({
   
   return (
     <div 
-      className="fixed pointer-events-none z-50"
+      className="fixed pointer-events-none z-[9999999999999999]"
       style={{ 
         left: isHidden ? `${window.innerWidth - 60}px` : `${x}px`,
         top: isHidden ? `50%` : `${y}px`,
@@ -126,7 +126,7 @@ const TourCursor = ({
               <button 
                 onClick={handleHide}
                 title='Pause the tour'
-                className="pointer-events-auto absolute -top-4 -right-4 bg-[#ffffff27] backdrop-blur-2xl rounded-full p-[6px] shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110"
+                className="pointer-events-auto absolute -top-4 -right-4 bg-[#ffffff6c] backdrop-blur-sm rounded-full p-[6px] shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110"
               >
                 <HeartCrack color='white' fill='red' size={14} />
               </button>
@@ -156,7 +156,7 @@ const TourCursor = ({
                 <button 
                   onClick={handleContinue}
                   title='Continue the tour'
-                  className="pointer-events-auto bg-[#ffffff27] backdrop-blur-xl rounded-full p-[6px] shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110"
+                  className="pointer-events-auto bg-[#ffffff6c] backdrop-blur-sm rounded-full p-[6px] shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110"
                 >
                   <Heart size={14} fill='red' color='white' />
                 </button>

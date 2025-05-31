@@ -201,9 +201,10 @@ const TourGuide = ({
           {showProgress && (
             <div className={`fixed top-4 right-4 z-50 ${ProgressTheme =='Dark' ? 'bg-[#202020]' : 'bg-white/90' } backdrop-blur-sm rounded-full px-4 py-2 shadow-lg`}>
               <div className={`text-sm font-medium ${ProgressTheme =='Dark' ? 'text-white' : 'text-gray-700' } `}>
-                Step {currentStep + 1} of {steps.length}
+                <span className="hidden sm:inline">Step {currentStep + 1} of {steps.length}</span>
+                <span className="sm:hidden">{currentStep + 1}/{steps.length}</span>
               </div>
-              <div className="w-32 h-1 bg-gray-200 rounded-full mt-1">
+              <div className="w-5 md:w-32 h-1 bg-gray-200 rounded-full mt-1">
                 <div 
                   className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full transition-all duration-500"
                   style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
