@@ -24,6 +24,7 @@ npm i @gajendra-naphade/react-web-guide
 
 ```jsx
 import { TourGuide } from 'react-web-guide';
+import '@gajendra-naphade/react-web-guide/dist/styles.css';
 
 function App() {
   const tourSteps = [
@@ -96,6 +97,7 @@ interface Step {
 ```jsx
 import { useRef } from 'react';
 import { TourGuide } from 'react-web-guide';
+import '@gajendra-naphade/react-web-guide/dist/styles.css';
 
 function App() {
   const buttonRef = useRef(null);
