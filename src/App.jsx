@@ -127,7 +127,7 @@ function App() {
         className="bg-white border-t mt-8 p-4"
       >
         <p className="text-center text-gray-600">
-          © 2024 Your Company. All rights reserved.
+          © 2024 <a href="https://gajendra-naphade.vercel.app/" className='underline'> Gajendra</a>. All rights reserved. Made with ❤️ by <a href="https://gajendra-naphade.vercel.app/" className='underline'>Gajendra Naphade</a>
         </p>
       </footer>
      

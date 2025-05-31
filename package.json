@@ -12,7 +12,7 @@
     "LICENSE"
   ],
   "scripts": {
-     "build:css": "tailwindcss -i ./src/index.css -o ./dist/styles.css --minify",
+    "build:css": "tailwindcss -i ./src/index.css -o ./dist/styles.css --minify",
     "dev": "vite",
     "build": "vite build && npm run build:css",
     "lint": "eslint .",
@@ -39,11 +39,11 @@
   },
   "homepage": "https://github.com/gajju44/React-Web-Guide#readme",
   "peerDependencies": {
-     "react": ">=16.8.0",
-  "react-dom": ">=16.8.0"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "dependencies": {
-    "lucide-react": "^0.294.0"
+    "lucide-react": "^0.511.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
