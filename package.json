@@ -35,7 +35,7 @@
   "license": "MIT",
   "publishConfig": {
   "access": "public"
-  }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gajju44/React-Web-Guide.git"
