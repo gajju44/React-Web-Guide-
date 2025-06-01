@@ -201,7 +201,7 @@ We welcome contributions! To get started:
 
 ## License
 
-[MIT License](https://github.com/gajju44/React-Web-Guide/blob/main/blob/main/License.md) - Use **React Web Guide** freely in your projects!
+[MIT License](https://github.com/gajju44/React-Web-Guide/blob/main/License.md) - Use **React Web Guide** freely in your projects!
 
 ---
 
