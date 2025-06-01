@@ -4,7 +4,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@gajendra-naphade/react-web-guide.svg)](https://www.npmjs.com/package/@gajendra-naphade/react-web-guide)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/gajendra-naphade/react-web-guide)](https://github.com/gajendra-naphade/React-Web-Guide/issues)
+[![GitHub issues](https://img.shields.io/github/issues/gajju44/React-Web-Guide)](https://github.com/gajju44/React-Web-Guide/issues)
 
 ---
 
@@ -207,11 +207,11 @@ We welcome contributions! To get started:
 
 ## Support
 
--  Report bugs: [GitHub Issues](https://github.com/gajendra-naphade/react-web-guide/issues)
+-  Report bugs: [GitHub Issues](https://github.com/gajju44/React-Web-Guide/issues)
 -  Email: [gajendra44.connect@gmail.com](mailto:gajendra44.connect@gmail.com) 
 
 ---
 
-Made with ❤️ by [Gajendra Naphade](https://github.com/gajendra-naphade)
+Made with ❤️ by [Gajendra Naphade](https://gajendra-naphade.vercel.app/)
 
 ---
