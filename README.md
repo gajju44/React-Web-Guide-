@@ -4,7 +4,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@gajendra-naphade/react-web-guide.svg)](https://www.npmjs.com/package/@gajendra-naphade/react-web-guide)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/gajendra-naphade/react-web-guide)](https://github.com/gajendra-naphade/react-web-guide/issues)
+[![GitHub issues](https://img.shields.io/github/issues/gajendra-naphade/react-web-guide)](https://github.com/gajendra-naphade/React-Web-Guide/issues)
 
 ---
 
