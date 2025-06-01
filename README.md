@@ -10,19 +10,19 @@
 
 ## Table of Contents
 
-- [Features ](#features-)
-- [Demo ](#demo-)
-- [Installation ](#installation-)
-- [Quick Start ](#quick-start-)
-- [Props Documentation ](#props-documentation-)
-- [Example Usage ](#example-usage-)
-- [Contributing ](#contributing-)
-- [License ](#license-)
-- [Support ](#support-)
+- [Features ](#features)
+- [Demo ](#demo)
+- [Installation ](#installation)
+- [Quick Start ](#quick-start)
+- [Props Documentation ](#props-documentation)
+- [Example Usage ](#example-usage)
+- [Contributing ](#contributing)
+- [License ](#license)
+- [Support ](#support)
 
 ---
 
-## Features 
+## Features
 
 -  **Interactive Tours**: Cursor-driven navigation for intuitive user guidance.
 -  **Customizable Styling**: Match your app’s branding with ease.
@@ -36,7 +36,7 @@ Ideal for **user onboarding**, **feature showcases**, and **guided tutorials** i
 
 ---
 
-## Demo 🎥
+## Demo
 
 See **React Web Guide** in action:
 
@@ -44,7 +44,7 @@ See **React Web Guide** in action:
 
 ---
 
-## Installation 
+## Installation
 
 Install **React Web Guide** via npm or Yarn:
 
@@ -55,10 +55,12 @@ npm install @gajendra-naphade/react-web-guide
 ```bash
 yarn add @gajendra-naphade/react-web-guide
 ```
-
+```bash
+pnpm add @gajendra-naphade/react-web-guide
+```
 ---
 
-## Quick Start 
+## Quick Start
 
 Get started in minutes:
 
@@ -93,7 +95,7 @@ function App() {
 
 ---
 
-## Props Documentation 
+## Props Documentation
 
 Customize **React Web Guide** with these props:
 
@@ -141,7 +143,7 @@ interface Step {
 
 ---
 
-## Example Usage 
+## Example Usage
 
 ```jsx
 import { useRef } from 'react';
@@ -185,7 +187,7 @@ function App() {
 
 ---
 
-## Contributing 
+## Contributing
 
 We welcome contributions! To get started:
 
@@ -197,13 +199,13 @@ We welcome contributions! To get started:
 
 ---
 
-## License 
+## License
 
 [MIT License](LICENSE) - Use **React Web Guide** freely in your projects!
 
 ---
 
-## Support 
+## Support
 
 -  Report bugs: [GitHub Issues](https://github.com/gajendra-naphade/react-web-guide/issues)
 -  Email: [gajendra44.connect@gmail.com](mailto:gajendra44.connect@gmail.com) 
