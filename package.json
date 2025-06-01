@@ -26,7 +26,10 @@
     "tutorial",
     "documentation",
     "web-guide",
-    "web-tour"
+    "web-tour",
+    "user-onboarding", 
+    "tour-guide", 
+    "javascript"
   ],
   "author": "Gajendra Naphade",
   "license": "MIT",
