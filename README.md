@@ -1,54 +1,101 @@
-# React Web Guide 🚀
+# React Web Guide 
 
-A beautiful and customizable website tour guide component for React applications. Help your users navigate through your website with an interactive and engaging tour experience.
+**React Web Guide** is a customizable, interactive website tour component for React applications. Guide users through your app with engaging, cursor-based tours to enhance onboarding and user experience.
 
-## Features ✨
+[![npm version](https://img.shields.io/npm/v/@gajendra-naphade/react-web-guide.svg)](https://www.npmjs.com/package/@gajendra-naphade/react-web-guide)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/gajendra-naphade/react-web-guide)](https://github.com/gajendra-naphade/react-web-guide/issues)
 
-- 🎯 Interactive cursor-based tour guide
-- 🎨 Fully customizable styling
-- 📱 Responsive design
-- 🔄 Progress tracking
-- ⚡ Smooth animations
-- 🎭 Minimizable interface
-- 🎮 Keyboard navigation support
-- 🌈 Beautiful default UI with gradient effects
+---
 
-## Installation 📦
+## Table of Contents
+
+- [Features ](#features-)
+- [Demo ](#demo-)
+- [Installation ](#installation-)
+- [Quick Start ](#quick-start-)
+- [Props Documentation ](#props-documentation-)
+- [Example Usage ](#example-usage-)
+- [Contributing ](#contributing-)
+- [License ](#license-)
+- [Support ](#support-)
+
+---
+
+## Features 
+
+-  **Interactive Tours**: Cursor-driven navigation for intuitive user guidance.
+-  **Customizable Styling**: Match your app’s branding with ease.
+-  **Responsive Design**: Seamless experience on desktop and mobile.
+-  **Progress Tracking**: Clear indicators to show tour progress.
+-  **Smooth Animations**: Fluid transitions for a polished look.
+-  **Minimizable UI**: Compact interface to save screen space.
+-  **Modern UI**: Beautiful default design with gradient effects.
+
+Ideal for **user onboarding**, **feature showcases**, and **guided tutorials** in React apps.
+
+---
+
+## Demo 🎥
+
+See **React Web Guide** in action:
+
+![React Web Guide Demo](https://i.postimg.cc/2yJTtQTV/Untitled-video-Made-with-Clipchamp-1.gif)
+
+---
+
+## Installation 
+
+Install **React Web Guide** via npm or Yarn:
 
 ```bash
-npm i @gajendra-naphade/react-web-guide
-
+npm install @gajendra-naphade/react-web-guide
 ```
 
-## Quick Start 🚀
+```bash
+yarn add @gajendra-naphade/react-web-guide
+```
+
+---
+
+## Quick Start 
+
+Get started in minutes:
 
 ```jsx
-import { TourGuide } from 'react-web-guide';
+import { TourGuide } from '@gajendra-naphade/react-web-guide';
 import '@gajendra-naphade/react-web-guide/dist/styles.css';
+import { useRef } from 'react';
 
 function App() {
+  const buttonRef = useRef(null);
   const tourSteps = [
     {
       ref: buttonRef,
       name: "Welcome",
-      message: "Click here to start your journey!",
-      color: "#ff6b6b"
+      message: "Click to start your journey!",
+      color: "#ff6b6b",
     },
-    // Add more steps...
+    // Add more steps
   ];
 
   return (
-    <TourGuide 
-      steps={tourSteps}
-      onComplete={() => console.log('Tour completed!')}
-    />
+    <div>
+      <button ref={buttonRef}>Start</button>
+      <TourGuide
+        steps={tourSteps}
+        onComplete={() => console.log('Tour completed!')}
+      />
+    </div>
   );
 }
 ```
 
-## Props Documentation 📚
+---
 
-### TourGuide Component Props
+## Props Documentation 
+
+Customize **React Web Guide** with these props:
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
@@ -83,55 +130,48 @@ function App() {
 
 ```typescript
 interface Step {
-  ref: React.RefObject<HTMLElement>;  // Reference to the target element
-  name: string;                       // Name shown in the cursor
-  message: string;                    // Message to display
-  color?: string;                     // Custom color for the cursor
-  offsetX?: number;                   // Custom X offset for cursor position
-  offsetY?: number;                   // Custom Y offset for cursor position
+  ref: React.RefObject<HTMLElement>; // Target element reference
+  name: string;                     // Cursor display name
+  message: string;                  // Tour message
+  color?: string;                   // Cursor color
+  offsetX?: number;                 // X offset for cursor
+  offsetY?: number;                 // Y offset for cursor
 }
 ```
 
-## Example Usage 🎯
+---
+
+## Example Usage 
 
 ```jsx
 import { useRef } from 'react';
-import { TourGuide } from 'react-web-guide';
+import { TourGuide } from '@gajendra-naphade/react-web-guide';
 import '@gajendra-naphade/react-web-guide/dist/styles.css';
 
 function App() {
   const buttonRef = useRef(null);
   const featureRef = useRef(null);
-  const settingsRef = useRef(null);
 
   const tourSteps = [
     {
       ref: buttonRef,
       name: "Welcome",
-      message: "Click here to start your journey!",
-      color: "#ff6b6b"
+      message: "Start your journey here!",
+      color: "#ff6b6b",
     },
     {
       ref: featureRef,
       name: "Features",
-      message: "Discover our amazing features!",
-      color: "#4CAF50"
+      message: "Explore our features!",
+      color: "#4CAF50",
     },
-    {
-      ref: settingsRef,
-      name: "Settings",
-      message: "Customize your experience here.",
-      color: "#2196F3"
-    }
   ];
 
   return (
     <div>
       <button ref={buttonRef}>Start</button>
-      <div ref={featureRef}>Features Section</div>
-      <div ref={settingsRef}>Settings Section</div>
-
-      <TourGuide 
+      <div ref={featureRef}>Features</div>
+      <TourGuide
         steps={tourSteps}
         onComplete={() => console.log('Tour completed!')}
         startButtonText="Begin Tour"
@@ -143,14 +183,33 @@ function App() {
 }
 ```
 
-## Contributing 🤝
+---
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## Contributing 
 
-## License 📄
+We welcome contributions! To get started:
 
-MIT License - feel free to use this component in your projects!
+1. Fork the repo.
+2. Create a branch (`git checkout -b feature/YourFeature`).
+3. Commit changes (`git commit -m 'Add YourFeature'`).
+4. Push to the branch (`git push origin feature/YourFeature`).
+5. Open a Pull Request
 
 ---
 
-Made with ❤️ by [Gajendra-Naphade]
+## License 
+
+[MIT License](LICENSE) - Use **React Web Guide** freely in your projects!
+
+---
+
+## Support 
+
+-  Report bugs: [GitHub Issues](https://github.com/gajendra-naphade/react-web-guide/issues)
+-  Email: [gajendra44.connect@gmail.com](mailto:gajendra44.connect@gmail.com) 
+
+---
+
+Made with ❤️ by [Gajendra Naphade](https://github.com/gajendra-naphade)
+
+---
