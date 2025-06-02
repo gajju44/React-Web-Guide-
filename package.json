@@ -15,9 +15,11 @@
     "build:css": "tailwindcss -i ./src/index.css -o ./dist/styles.css --minify",
     "dev": "vite",
     "build": "vite build && npm run build:css",
+    "build:dev": "vite build --mode development && npm run build:css",
+    "build:prod": "vite build --mode production && npm run build:css",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "npm run build"
+    "prepare": "npm run build:prod"
   },
   "keywords": [
     "react",

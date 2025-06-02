@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react()],
   build: {
     lib: {
@@ -20,6 +20,20 @@ export default defineConfig({
           'react-dom': 'ReactDOM'
         }
       }
-    }
+    },
+    // Development settings
+    ...(command === 'serve' ? {
+      sourcemap: true,
+      minify: false
+    } : {
+      // Production settings
+      sourcemap: true,
+      minify: true,
+      rollupOptions: {
+        output: {
+          manualChunks: undefined
+        }
+      }
+    })
   }
-})
+}))
