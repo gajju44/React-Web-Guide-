@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TourCursor from './TourCursor';
-import { X, Maximize2 } from 'lucide-react';
+
 
 const TourGuide = ({ 
   steps = [], 
@@ -20,8 +20,8 @@ const TourGuide = ({
   expandedButtonClassName = "bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105",
   minimizedButtonClassName = "bg-white/90 backdrop-blur-sm text-gray-600 hover:text-gray-800 w-12 h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center",
   buttonStyle = {},
-  CloseButtonText= <X size={16} />,
-  ExpandButtonText= <Maximize2 size={16} />,
+  CloseButtonText= <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>,
+  ExpandButtonText= <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2" aria-hidden="true"><path d="M15 3h6v6"></path><path d="m21 3-7 7"></path><path d="m3 21 7-7"></path><path d="M9 21H3v-6"></path></svg>,
   minimizedButtonStyle = {
     width: '3rem',
     height: '3rem',
