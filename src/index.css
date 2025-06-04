@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*{
+   font-family: "Geist", sans-serif;
+}
 
   @keyframes bounce-gentle {
           0%, 100% { transform: translateY(0); }
@@ -19,3 +24,51 @@
           0%, 100% { box-shadow: 0 0 5px rgba(255, 107, 107, 0.3); }
           50% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.6); }
         }
+
+        @keyframes bounce {
+  0%, 100% {
+    transform: translateY(0) translateX(-50%);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-50%);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1) translateX(-50%);
+  }
+  50% {
+    transform: scale(1.05) translateX(-50%);
+  }
+}
+
+.animate-bounce-subtle {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.tooltip-enter {
+  opacity: 0;
+  transform: translateY(10px) translateX(-50%);
+}
+
+.tooltip-enter-active {
+  opacity: 1;
+  transform: translateY(0) translateX(-50%);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.tooltip-exit {
+  opacity: 1;
+  transform: translateY(0) translateX(-50%);
+}
+
+.tooltip-exit-active {
+  opacity: 0;
+  transform: translateY(10px) translateX(-50%);
+  transition: opacity 300ms, transform 300ms;
+} 

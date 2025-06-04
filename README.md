@@ -25,14 +25,15 @@
 ## Features
 
 -  **Interactive Tours**: Cursor-driven navigation for intuitive user guidance.
--  **Customizable Styling**: Match your app’s branding with ease.
+-  **Customizable Styling**: Match your app's branding with ease.
 -  **Responsive Design**: Seamless experience on desktop and mobile.
 -  **Progress Tracking**: Clear indicators to show tour progress.
 -  **Smooth Animations**: Fluid transitions for a polished look.
 -  **Minimizable UI**: Compact interface to save screen space.
 -  **Modern UI**: Beautiful default design with gradient effects.
+-  **React version Support**: Supports React version >=16.
 
-Ideal for **user onboarding**, **feature showcases**, and **guided tutorials** in React apps.
+Ideal for **user onboarding**, **feature showcases**, and **guided tutorials** in Web apps.
 
 ---
 
@@ -40,13 +41,13 @@ Ideal for **user onboarding**, **feature showcases**, and **guided tutorials** i
 
 See **React Web Guide** in action:
 
-![React Web Guide Demo](https://i.postimg.cc/2yJTtQTV/Untitled-video-Made-with-Clipchamp-1.gif)
+![React Web Guide Demo](https://i.postimg.cc/TYv9r0mt/webDemo.gif)
 
 ---
 
 ## Installation
 
-Install **React Web Guide** via npm or Yarn:
+Install **React Web Guide** via npm, Yarn or pnpm :
 
 ```bash
 npm install @gajendra-naphade/react-web-guide
@@ -74,9 +75,12 @@ function App() {
   const tourSteps = [
     {
       ref: buttonRef,
-      name: "Welcome",
-      message: "Click to start your journey!",
-      color: "#ff6b6b",
+      name: "Guide",
+      color: "black",
+      message: "This is the header section of your page",
+      offsetX: 0,
+      offsetY: 0,
+      CursorMessageGap:10,
     },
     // Add more steps
   ];
@@ -108,7 +112,6 @@ Customize **React Web Guide** with these props:
 | `minimizedStartText` | String | "Start" | Text for minimized start button |
 | `minimizedSkipText` | String | "Skip" | Text for minimized skip button |
 | `showProgress` | Boolean | `true` | Show/hide progress indicator |
-| `ProgressTheme` | String | "Light" | Progress theme ("Light" or "Dark") |
 | `buttonPosition` | Object | `{ bottom: '1.5rem', right: '1.5rem' }` | Position of the control button |
 | `expandedButtonClassName` | String | - | CSS classes for expanded button |
 | `minimizedButtonClassName` | String | - | CSS classes for minimized button |
@@ -127,6 +130,11 @@ Customize **React Web Guide** with these props:
 | `nextButtonContinueText` | String | "Continue" | Text for continue button |
 | `nextButtonClassName` | String | - | CSS classes for next button |
 | `nextButtonStyle` | Object | `{}` | Custom styles for next button |
+| `Theme` | String | "Light" | Theme for the tour ("Light" or "Dark") |
+| `Minimized` | Boolean | `true` | Whether to start in minimized state |
+| `showTooltip` | Boolean | `true` | Show/hide the start tooltip |
+| `messageClass` | String | - | CSS classes for the message box |
+
 
 ### Step Object Structure
 
@@ -138,6 +146,7 @@ interface Step {
   color?: string;                   // Cursor color
   offsetX?: number;                 // X offset for cursor
   offsetY?: number;                 // Y offset for cursor
+  CursorMessageGap?: number;        // Gap between cursor and message(in pixels "px")
 }
 ```
 
@@ -153,6 +162,7 @@ import '@gajendra-naphade/react-web-guide/dist/styles.css';
 function App() {
   const buttonRef = useRef(null);
   const featureRef = useRef(null);
+  const settingsRef = useRef(null);
 
   const tourSteps = [
     {
@@ -160,25 +170,49 @@ function App() {
       name: "Welcome",
       message: "Start your journey here!",
       color: "#ff6b6b",
+      CursorMessageGap: 10
     },
     {
       ref: featureRef,
       name: "Features",
-      message: "Explore our features!",
+      message: "Explore our amazing features!",
       color: "#4CAF50",
+      offsetX: 20,
+      offsetY: 10
     },
+    {
+      ref: settingsRef,
+      name: "Settings",
+      message: "Customize your experience here",
+      color: "#2196F3",
+      CursorMessageGap: 15
+    }
   ];
 
   return (
     <div>
       <button ref={buttonRef}>Start</button>
       <div ref={featureRef}>Features</div>
+      <div ref={settingsRef}>Settings</div>
       <TourGuide
         steps={tourSteps}
         onComplete={() => console.log('Tour completed!')}
         startButtonText="Begin Tour"
+        skipButtonText="End Tour"
+        minimizedStartText="Start"
+        minimizedSkipText="Skip"
         showProgress={true}
-        ProgressTheme="Dark"
+        Theme="Dark"
+        Minimized={true}
+        showTooltip={true}
+        buttonPosition={{
+          bottom: '2rem',
+          right: '2rem'
+        }}
+        messageClass="custom-message"
+        nextButtonText="Next Step"
+        nextButtonContinueText="Continue"
+        nextButtonClassName="custom-next-button"
       />
     </div>
   );

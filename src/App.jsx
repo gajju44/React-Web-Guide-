@@ -1,3 +1,5 @@
+//this code is for devs and not important
+
 import { useRef } from 'react'
 import  TourGuide  from './components/TourGuide'
 function App() {
@@ -11,11 +13,12 @@ function App() {
   const tourSteps = [
     {
       ref: headerRef,
-      name: "Guide",
+      name: "Guide Guide",
       color: "black",
       message: "This is the header section of your page",
       offsetX: 0,
-      offsetY: 0
+      offsetY: 0,
+       CursorMessageGap:30,
     },
     {
       ref: contentRef,
@@ -53,7 +56,7 @@ function App() {
           minimizedStartText="Start"
           minimizedSkipText="Skip"
         showProgress={true}
-        ProgressTheme="Dark"
+      Theme="Dark"
         buttonPosition={{
           bottom: '2rem',
           left: 'auto',     
@@ -61,17 +64,20 @@ function App() {
           top: 'auto',
         
         }}
+       Minimized={true}
+      
        
-        expandedButtonClassName="bg-blue-500 text-white px-4 py-2 rounded-full "
-        minimizedButtonClassName="bg-blue-500 text-gray-800 w-12 h-12 rounded-full" 
-        closeButtonClassName="bg-red-100 text-red-600 rounded-full p-1 -translate-y-4"
-  expandButtonClassName="bg-green-100 text-green-600 rounded-full p-1 -translate-y-4"  
+        // expandedButtonClassName="bg-blue-500 text-white px-4 py-2 rounded-full "
+        // minimizedButtonClassName="bg-blue-500 text-gray-800 w-12 h-12 rounded-full" 
+  //       closeButtonClassName="bg-red-100 text-red-600 rounded-full p-1 -translate-y-4"
+  // expandButtonClassName="bg-green-100 text-green-600 rounded-full p-1 -translate-y-4"  
         // cursorImage="/path/to/your/cursor.png"
-        messageBoxStyle={{
-          backgroundColor: '#ffff',
-          borderRadius: '12px',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-        }}
+        // messageBoxStyle={{
+        //   backgroundColor: '#ffff',
+        //   borderRadius: '12px',
+        //   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+        // }}
+        // messageClass=""
         cursorStyle={{
           transform: 'scale(1.2)',
           transition: 'all 0.3s ease'
@@ -79,7 +85,7 @@ function App() {
         }}
      />
     
-    <div className="min-h-screen h-screen bg-gray-50">
+    <div className="min-h-screen flex flex-col justify-between h-screen bg-gray-50">
     
 
      

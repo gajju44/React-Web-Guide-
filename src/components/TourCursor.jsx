@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 
 
 const TourCursor = ({ 
   x, 
+  CursorMessageGap,
   y, 
   isOffScreen,
+  Theme,
   name = "Guide", 
   color = "#ff6b6b", 
   message, 
@@ -16,8 +18,9 @@ const TourCursor = ({
   cursorStyle = {},
   nextButtonText ,
   nextButtonContinueText ,
-  nextButtonClassName = "pointer-events-auto bg-gradient-to-r from-purple-500 to-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-95",
-  nextButtonStyle = {}
+  nextButtonClassName = ` ${Theme === "Light" ? "text-white bg-black/90" : "bg-white/90 text-black"} pointer-events-auto   backdrop-blur-sm  rounded-md border px-3 py-[1px] rounded-full text-[10px] flex items-center justify-center font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-95`,
+  nextButtonStyle = {},
+  messageClass,
 }) => {
   const [messagePosition, setMessagePosition] = useState({ left: false, top: false });
   const [isHidden, setIsHidden] = useState(false);
@@ -34,7 +37,7 @@ const TourCursor = ({
     const spaceBottom = window.innerHeight - y - cursorOffset;
     const spaceTop = y - cursorOffset;
     
-    // Only change position if message would go off-screen
+    //  change position if message would go off-screen
     const shouldBeOnLeft = spaceRight < messageWidth && spaceLeft > messageWidth;
     const shouldBeOnTop = spaceBottom < messageHeight && spaceTop > messageHeight;
     
@@ -47,7 +50,7 @@ const TourCursor = ({
   if (!isVisible) return null;
   
   const messageClasses = [
-    "absolute px-2 md:px-3 py-2 rounded-lg text-[10px] md:text-sm text-gray-800 bg-white shadow-lg border w-24 md:w-48",
+    `${messageClass} ${Theme == "Light" ? "bg-[#ffffff2d] text-gray-900" : "bg-[#0a0b1b] text-white"}  z-[999999999999999999999999999999] absolute px-2 md:px-3 py-2 rounded-lg text-[10px] md:text-xs font-medium  2xl:text-sm  backdrop-blur-md shadow-lg border-[0.2px] w-24 md:w-48`,
     messagePosition.left ? "right-14" : "left-8",
     messagePosition.top && !messagePosition.left ? "bottom-2 left-6" : "top-6",
     "transition-all duration-500 ease-in-out"
@@ -65,7 +68,7 @@ const TourCursor = ({
   
   return (
     <div 
-      className="fixed pointer-events-none z-[9999999999999999]"
+      className="fixed pointer-events-none z-[999999999999999999999999999999]"
       style={{ 
         left: isHidden ? `${window.innerWidth - 60}px` : `${x}px`,
         top: isHidden ? `50%` : `${y}px`,
@@ -74,12 +77,12 @@ const TourCursor = ({
       }}
     >
       {/* Main cursor */}
-      <div className="relative">
+      <div className="relative z-[999999999999999999999999999999999]">
         {cursorImage ? (
           <img 
             src={cursorImage} 
             alt="Custom cursor" 
-            className="w-6 h-6 drop-shadow-lg"
+            className={`w-6 h-6 drop-shadow-lg ${messagePosition.top ? '-translate-y-5' : ''}  z-[99999999999999999]`}
             style={{
               filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
             }}
@@ -90,7 +93,7 @@ const TourCursor = ({
             height="24" 
             viewBox="0 0 24 24" 
             fill="none" 
-            className="drop-shadow-lg"
+            className={`drop-shadow-lg ${messagePosition.top ? '-translate-y-5' : ''} z-[99999999999999999]`}
             style={{
               filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
             }}
@@ -106,7 +109,7 @@ const TourCursor = ({
         
         {/* Name tag */}
         <div 
-          className="absolute top-6 -left-4 px-2 py-[1px] rounded-full text-[10px] text-white font-medium whitespace-nowrap shadow-md"
+          className={`absolute ${!messagePosition.top ? 'top-6 -left-4' : 'bottom-1 -left-4'}  px-2 py-[1px] rounded-full text-[10px] text-white font-medium whitespace-nowrap shadow-md`}
           style={{ backgroundColor: color }}
         >
           {name}
@@ -120,13 +123,14 @@ const TourCursor = ({
               style={{
                 ...messageBoxStyle,
                 opacity: isHidden ? 0 : 1,
-                transform: isHidden ? 'translateX(100px)' : 'translateX(0)'
+                transform: isHidden ? 'translateX(100px)' : 'translateX(0)',
+                marginLeft: messagePosition.left ? '0' : `${CursorMessageGap}px`,
               }}
             >
               <button 
                 onClick={handleHide}
                 title='Pause the tour'
-                className="pointer-events-auto absolute -top-4 -right-4 bg-[#ffffff6c] backdrop-blur-sm rounded-full p-[6px] shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110"
+                className={` ${Theme === "Light" ? "bg-[#ffffff6c]" : "bg-[#6b6b6b6c] "} pointer-events-auto absolute -top-6 -right-6 border  backdrop-blur-md rounded-full p-[6px] shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110`}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="red" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-crack" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="m12 13-1-1 2-2-3-3 2-2"></path></svg>
               </button>
@@ -156,7 +160,7 @@ const TourCursor = ({
                 <button 
                   onClick={handleContinue}
                   title='Continue the tour'
-                  className="pointer-events-auto bg-[#ffffff6c] backdrop-blur-sm rounded-full p-[6px] shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110"
+                  className={` ${Theme === "Light" ? "bg-[#ffffff6c]" : "bg-[#6b6b6b6c] "} pointer-events-auto backdrop-blur-md border rounded-full p-[6px] shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110`}
                 >
                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="red" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
                 </button>
