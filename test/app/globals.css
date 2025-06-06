@@ -1,0 +1,102 @@
+@import "tailwindcss";
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.CircleHome{
+position: absolute;
+left: calc(50% - 1324px/2 - 0px);
+top: 70%;
+
+background: linear-gradient(249.43deg, rgba(0, 0, 0, 0) 53.45%, rgba(244, 106, 52, 0.4) 89%), linear-gradient(131.57deg, rgba(0, 0, 0, 0) 66.02%, rgba(10, 71, 241, 0.5) 67.55%), linear-gradient(290.56deg, #E3D6DF 6.54%, rgba(255, 71, 215, 0.38) 20.06%, rgba(0, 0, 0, 0) 42.13%), linear-gradient(102.82deg, rgba(0, 0, 0, 0) 57.47%, rgba(10, 71, 241, 0.4) 101.83%), linear-gradient(213.15deg, rgba(0, 0, 0, 0) 43.97%, #1D4FAF 90.77%), linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 30.03%, #000000 100%), radial-gradient(122.43% 25.26% at 50% 25.26%, rgba(0, 0, 0, 0) 0%, #0A47F1 100%), #000000;
+box-shadow: inset 0px 4px 5px 4px #000000;
+
+transform: rotate(-0.02deg);
+
+}
+
+.HomeBlur{
+position: absolute;
+width: 343px;
+height: 214px;
+transform: rotate(-0.02deg);
+
+
+}
+
+.HomeBlur2{
+  position: absolute;
+width: 343px;
+height: 214px;
+left: calc(50% - 214px/2 - 0.39px);
+top: 297.22px;
+
+background: #FFFFF0;
+filter: blur(100px);
+transform: rotate(-0.02deg);
+}
+
+.HomeBlur3{
+  position: absolute;
+  width: 343px;
+  height: 214px;
+  left: calc(50% - 214px/2 - 0.39px);
+  top: 297.22px;
+  
+  background: #FFFFF0;
+  box-shadow: 0px 70px 250px 100px #F46A34;
+  filter: blur(35px);
+  transform: rotate(-0.02deg);
+}
+.HomeBlur4{
+  
+position: absolute;
+width: 343px;
+height: 204px;
+
+
+background: #FFFFF0;
+box-shadow: 0px 70px 250px 100px #F46A34;
+filter: blur(35px);
+transform: rotate(-0.02deg);
+
+}
+.upperbutton{
+
+border: 0.5px solid rgba(255, 255, 255, 0.103);
+
+}
+
+.softwareBtn{
+  display: flex;
+  color: rgba(255, 255, 255, 0.90);
+
+  justify-content: center;
+align-items: center;
+flex-shrink: 0;
+border-radius: 50px;
+border: 0.5px solid rgba(255, 255, 255, 0.20);
+background: #06092B;
+}

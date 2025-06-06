@@ -1,31 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-*{
-   font-family: "Geist", sans-serif;
+/* Scope Tailwind base styles to package components */
+.react-web-guide {
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  position: relative;
+  z-index: 999999;
 }
 
-  @keyframes bounce-gentle {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-5px); }
-        }
-        .animate-bounce-gentle {
-          animation: bounce-gentle 2s infinite;
-        }
-        
-        @keyframes gentleBob {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-2px); }
-        }
-        
-        @keyframes cursorGlow {
-          0%, 100% { box-shadow: 0 0 5px rgba(255, 107, 107, 0.3); }
-          50% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.6); }
-        }
+/* Package-specific styles */
+.react-web-guide * {
+  font-family: "Geist", sans-serif;
+  position: relative;
+  z-index: 999999;
+}
 
-        @keyframes bounce {
+
+
+
+
+/* Animations */
+@keyframes bounce-gentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.react-web-guide .animate-bounce-gentle {
+  animation: bounce-gentle 2s infinite;
+}
+
+@keyframes gentleBob {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-2px); }
+}
+
+@keyframes cursorGlow {
+  0%, 100% { box-shadow: 0 0 5px rgba(255, 107, 107, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.6); }
+}
+
+@keyframes bounce {
   0%, 100% {
     transform: translateY(0) translateX(-50%);
   }
@@ -43,32 +58,32 @@
   }
 }
 
-.animate-bounce-subtle {
+.react-web-guide .animate-bounce-subtle {
   animation: bounce 2s ease-in-out infinite;
 }
 
-.animate-pulse-subtle {
+.react-web-guide .animate-pulse-subtle {
   animation: pulse 2s ease-in-out infinite;
 }
 
-.tooltip-enter {
+.react-web-guide .tooltip-enter {
   opacity: 0;
   transform: translateY(10px) translateX(-50%);
 }
 
-.tooltip-enter-active {
+.react-web-guide .tooltip-enter-active {
   opacity: 1;
   transform: translateY(0) translateX(-50%);
   transition: opacity 300ms, transform 300ms;
 }
 
-.tooltip-exit {
+.react-web-guide .tooltip-exit {
   opacity: 1;
   transform: translateY(0) translateX(-50%);
 }
 
-.tooltip-exit-active {
+.react-web-guide .tooltip-exit-active {
   opacity: 0;
   transform: translateY(10px) translateX(-50%);
   transition: opacity 300ms, transform 300ms;
-} 
+}

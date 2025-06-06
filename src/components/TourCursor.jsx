@@ -18,7 +18,7 @@ const TourCursor = ({
   cursorStyle = {},
   nextButtonText ,
   nextButtonContinueText ,
-  nextButtonClassName = ` ${Theme === "Light" ? "text-white bg-black/90" : "bg-white/90 text-black"} pointer-events-auto   backdrop-blur-sm  rounded-md border px-3 py-[1px] rounded-full text-[10px] flex items-center justify-center font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-95`,
+  nextButtonClassName ,
   nextButtonStyle = {},
   messageClass,
 }) => {
@@ -50,7 +50,7 @@ const TourCursor = ({
   if (!isVisible) return null;
   
   const messageClasses = [
-    `${messageClass} ${Theme == "Light" ? "bg-[#ffffff2d] text-gray-900" : "bg-[#0a0b1b] text-white"}  z-[999999999999999999999999999999] absolute px-2 md:px-3 py-2 rounded-lg text-[10px] md:text-xs font-medium  2xl:text-sm  backdrop-blur-md shadow-lg border-[0.2px] w-24 md:w-48`,
+    `${messageClass} ${Theme == "Light" ? "bg-[#ffffff2d] text-gray-900" : "bg-[#0a0b1b] text-white"}  z-[999999999999999999999999999999] absolute px-2 md:!px-3 py-2 rounded-lg text-[10px] md:!text-xs font-medium  2xl:!text-sm  backdrop-blur-md shadow-lg border-[0.2px] w-24 md:!w-48`,
     messagePosition.left ? "right-14" : "left-8",
     messagePosition.top && !messagePosition.left ? "bottom-2 left-6" : "top-6",
     "transition-all duration-500 ease-in-out"
@@ -68,7 +68,7 @@ const TourCursor = ({
   
   return (
     <div 
-      className="fixed pointer-events-none z-[999999999999999999999999999999]"
+      className="fixed react-web-guide pointer-events-none z-[999999999999999999999999999999]"
       style={{ 
         left: isHidden ? `${window.innerWidth - 60}px` : `${x}px`,
         top: isHidden ? `50%` : `${y}px`,
@@ -109,7 +109,7 @@ const TourCursor = ({
         
         {/* Name tag */}
         <div 
-          className={`absolute ${!messagePosition.top ? 'top-6 -left-4' : 'bottom-1 -left-4'}  px-2 py-[1px] rounded-full text-[10px] text-white font-medium whitespace-nowrap shadow-md`}
+          className={`absolute ${!messagePosition.top ? 'top-6 -left-4' : 'bottom-1 -left-4'}  px-2 py-[1px] rounded-full text-[10px] max-w-[65px]  truncate text-white font-medium whitespace-nowrap shadow-md`}
           style={{ backgroundColor: color }}
         >
           {name}
@@ -139,7 +139,7 @@ const TourCursor = ({
                 <button 
                 title={ isOffScreen ? nextButtonContinueText : nextButtonText}
                   onClick={onClick}
-                  className={nextButtonClassName}
+                  className={`${nextButtonClassName} ${Theme === "Light" ? "text-white bg-black/90" : "bg-white/90 text-black"} !pointer-events-auto !z-[99999999999999999999]   backdrop-blur-sm  rounded-md border px-3 py-[1px] rounded-full text-[10px] flex items-center justify-center font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-95`}
                   style={nextButtonStyle}
                 >
                   { isOffScreen ? nextButtonContinueText : nextButtonText}

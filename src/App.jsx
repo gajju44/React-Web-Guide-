@@ -56,7 +56,7 @@ function App() {
           minimizedStartText="Start"
           minimizedSkipText="Skip"
         showProgress={true}
-      Theme="Dark"
+      Theme="Light"
         buttonPosition={{
           bottom: '2rem',
           left: 'auto',     
@@ -85,7 +85,7 @@ function App() {
         }}
      />
     
-    <div className="min-h-screen flex flex-col justify-between h-screen bg-gray-50">
+    <div className="min-h-screen react-web-guide flex flex-col justify-between h-screen bg-gray-50">
     
 
      

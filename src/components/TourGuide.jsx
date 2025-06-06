@@ -7,7 +7,7 @@ const TourTooltip = ({ isVisible, onClose, theme }) => {
 
   return (
     <div 
-      className="absolute w-36 bottom-full mb-2 left-1/2 transform -translate-x-1/2 animate-bounce-subtle z-[99999999999999999]"
+      className="react-web-guide absolute w-36 bottom-full mb-2 left-1/2 transform -translate-x-1/2 animate-bounce-subtle z-[99999999999999999]"
     >
       <div 
         className={`relative ${theme === "Dark" ? "bg-black/90 text-white" : "bg-white/90 text-black"} px-3  py-2 rounded-lg shadow-lg backdrop-blur-sm tooltip-enter tooltip-enter-active`}
@@ -58,8 +58,8 @@ const TourGuide = ({
     height: '3rem',
     fontSize: '0.875rem'
   },
-  closeButtonClassName = " -translate-y-4 -translate-x-1 bg-white rounded-full p-1 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110",
-  expandButtonClassName = "-translate-y-4 -translate-x-1 bg-white rounded-full p-1 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110",
+  closeButtonClassName = `${Theme === "Dark" ? "text-white bg-black/90" : "bg-white/90 text-black"} -translate-y-4 -translate-x-1  rounded-full  p-1 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110`,
+  expandButtonClassName = `${Theme === "Dark" ? "text-white bg-black/90" : "bg-white/90 text-black"} -translate-y-4 -translate-x-1  rounded-full  p-1 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110`,
   closeButtonStyle = {},
   expandButtonStyle = {},
   cursorImage = null,
@@ -168,7 +168,7 @@ const TourGuide = ({
   };
 
   return (
-    <>
+    <div className='react-web-guide'>
       <div 
         className="fixed z-[999999999999999999999999999999999]"
         style={buttonPosition}
@@ -250,10 +250,10 @@ const TourGuide = ({
           {showProgress && (
             <div className={`fixed top-4 right-4 z-[999999999] ${Theme =='Dark' ? 'bg-[#202020]' : 'bg-white/90' } backdrop-blur-sm border rounded-full px-4 py-2 shadow-lg`}>
               <div className={`text-sm font-medium ${Theme =='Dark' ? 'text-white' : 'text-gray-700' } `}>
-                <span className="hidden sm:inline">Step {currentStep + 1} of {steps.length}</span>
+                <span className="hidden sm:!block text-center">Step {currentStep + 1} of {steps.length}</span>
                 <span className="sm:hidden">{currentStep + 1}/{steps.length}</span>
               </div>
-              <div className="w-5 md:w-32 h-1 bg-gray-200 rounded-full mt-1">
+              <div className="w-full h-1 bg-gray-200 rounded-full mt-1">
                 <div 
                   className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full transition-all duration-500"
                   style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
@@ -263,7 +263,7 @@ const TourGuide = ({
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
 

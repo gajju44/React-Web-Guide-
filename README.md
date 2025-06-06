@@ -41,7 +41,7 @@ Ideal for **user onboarding**, **feature showcases**, and **guided tutorials** i
 
 See **React Web Guide** in action:
 
-![React Web Guide Demo](https://i.postimg.cc/TYv9r0mt/webDemo.gif)
+![React Web Guide Demo](https://i.postimg.cc/c4tdCfDN/NewGuide.gif)
 
 ---
 
@@ -66,7 +66,7 @@ pnpm add @gajendra-naphade/react-web-guide
 Get started in minutes:
 
 ```jsx
-import { TourGuide } from '@gajendra-naphade/react-web-guide';
+import TourGuide from '@gajendra-naphade/react-web-guide';
 import '@gajendra-naphade/react-web-guide/dist/styles.css';
 import { useRef } from 'react';
 
@@ -156,7 +156,7 @@ interface Step {
 
 ```jsx
 import { useRef } from 'react';
-import { TourGuide } from '@gajendra-naphade/react-web-guide';
+import TourGuide from '@gajendra-naphade/react-web-guide';
 import '@gajendra-naphade/react-web-guide/dist/styles.css';
 
 function App() {
