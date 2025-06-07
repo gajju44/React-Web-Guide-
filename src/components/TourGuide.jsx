@@ -33,13 +33,20 @@ const TourTooltip = ({ isVisible, onClose, theme }) => {
 const findScrollableContainer = (element) => {
   if (!element || element === document.body) return window;
   
-  const { overflow, overflowY, overflowX } = window.getComputedStyle(element);
+  const { overflow, overflowY, overflowX, height } = window.getComputedStyle(element);
   const hasScrollableContent = element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
   const isScrollable = ['auto', 'scroll'].some(value => 
     [overflow, overflowY, overflowX].includes(value)
   );
   
-  if (isScrollable && hasScrollableContent) {
+  // Check for h-screen class or 100vh height
+  const hasFixedHeight = element.classList.contains('h-screen') || 
+                         height === '100vh' || 
+                         height === '100%' ||
+                         element.style.height === '100vh' ||
+                         element.style.height === '100%';
+  
+  if ((isScrollable || hasFixedHeight) && hasScrollableContent) {
     return element;
   }
   
@@ -136,8 +143,30 @@ const TourGuide = ({
         container = scrollContainer;
       }
     } else {
-      // Auto-detect scrollable container
+      // Auto-detect scrollable container with enhanced detection
       container = findScrollableContainer(steps[currentStep].ref.current);
+      
+      // Additional check for common scrollable containers
+      if (container === window) {
+        // Look for common scrollable container patterns
+        const commonSelectors = [
+          '.scrollDiv', // Your specific class
+          '[class*="h-screen"]',
+          '[class*="overflow"]',
+          '.scroll-smooth',
+          'main',
+          '#app',
+          '#root'
+        ];
+        
+        for (const selector of commonSelectors) {
+          const foundContainer = document.querySelector(selector);
+          if (foundContainer && foundContainer.scrollHeight > foundContainer.clientHeight) {
+            container = foundContainer;
+            break;
+          }
+        }
+      }
     }
     
     setScrollableContainer(container);
@@ -166,31 +195,29 @@ const TourGuide = ({
     if (!element) return;
 
     if (container === window) {
-     
+      // Window scrolling - avoid horizontal scrolling
       element.scrollIntoView({ 
         behavior: 'smooth', 
         block: 'center',
-        inline: 'center'
+        inline: 'nearest'
       });
     } else if (container && container.scrollTo) {
-      
+      // Container scrolling - only scroll vertically
       const containerRect = container.getBoundingClientRect();
       const elementRect = element.getBoundingClientRect();
       
       const scrollTop = container.scrollTop + elementRect.top - containerRect.top - container.clientHeight / 2 + elementRect.height / 2;
-      const scrollLeft = container.scrollLeft + elementRect.left - containerRect.left - container.clientWidth / 2 + elementRect.width / 2;
       
       container.scrollTo({
         top: scrollTop,
-        left: scrollLeft,
         behavior: 'smooth'
       });
     } else {
-      
+      // Fallback to scrollIntoView - avoid horizontal scrolling
       element.scrollIntoView({ 
         behavior: 'smooth', 
         block: 'center',
-        inline: 'center'
+        inline: 'nearest'
       });
     }
   };
@@ -201,12 +228,14 @@ const TourGuide = ({
       const container = containerRef.current || window;
       
       if (nextElement && !isElementInViewport(nextElement, container)) {
+        setShowCursor(false); // Hide cursor while scrolling
         scrollToElement(nextElement, container);
         
         setTimeout(() => {
           setIsOffScreen(false);
+          setShowCursor(true); // Show cursor again after scrolling
           nextStep();
-        }, 400); 
+        }, 800);
       } else {
         nextStep();
       }
@@ -224,9 +253,17 @@ const TourGuide = ({
     const handleScroll = () => updateCursorPosition();
     const handleResize = () => updateCursorPosition();
     
+    // Add keyboard event handler
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowRight') {
+        handleNextClick();
+      }
+    };
+    
     // Add scroll listeners to both window and container
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
+    window.addEventListener('keydown', handleKeyDown);
     
     if (container && container !== window) {
       container.addEventListener('scroll', handleScroll, { passive: true });
@@ -235,6 +272,7 @@ const TourGuide = ({
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('keydown', handleKeyDown);
       
       if (container && container !== window) {
         container.removeEventListener('scroll', handleScroll);

@@ -1,6 +1,6 @@
 {
   "name": "@gajendra-naphade/react-web-guide",
-  "version": "1.4.2",
+  "version": "1.4.9",
   "type": "module",
   "description": "React Web Guide: A customizable, interactive tour component for React apps.",
   "main": "dist/index.js",
