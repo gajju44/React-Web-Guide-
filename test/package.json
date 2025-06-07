@@ -4,9 +4,9 @@
   "description": "Test project for react-web-guide package",
   "main": "index.js",
   "scripts": {
-    "start": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "next build",
+    "dev": "next dev --turbopack",
+    "start": "next start"
   },
   "dependencies": {
     "@gajendra-naphade/react-web-guide": "file:..",
