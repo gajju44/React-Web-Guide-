@@ -16,11 +16,12 @@ const TourCursor = ({
   cursorImage = null,
   messageBoxStyle = {},
   cursorStyle = {},
-  nextButtonText ,
-  nextButtonContinueText ,
-  nextButtonClassName ,
+  nextButtonText,
+  nextButtonContinueText,
+  nextButtonClassName,
   nextButtonStyle = {},
   messageClass,
+  isNextStepOffScreen = false,
 }) => {
   const [messagePosition, setMessagePosition] = useState({ left: false, top: false });
   const [isHidden, setIsHidden] = useState(false);
@@ -137,12 +138,12 @@ const TourCursor = ({
               <div className="mb-2">{message}</div>
               {showNext && !isHidden && (
                 <button 
-                title={ isOffScreen ? nextButtonContinueText : nextButtonText}
+                  title={isOffScreen ? nextButtonContinueText :  nextButtonText}
                   onClick={onClick}
-                  className={`${nextButtonClassName} ${Theme === "Light" ? "text-white bg-black/90" : "bg-white/90 text-black"} !pointer-events-auto !z-[99999999999999999999]   backdrop-blur-sm  rounded-md border px-3 py-[1px] rounded-full text-[10px] flex items-center justify-center font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-95`}
+                  className={`${nextButtonClassName} ${Theme === "Light" ? "text-white bg-black/90" : "bg-white/90 text-black"} !pointer-events-auto !z-[99999999999999999999] backdrop-blur-sm rounded-md border px-3 py-[1px] rounded-full text-[10px] flex items-center justify-center font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-95`}
                   style={nextButtonStyle}
                 >
-                  { isOffScreen ? nextButtonContinueText : nextButtonText}
+                  {isOffScreen ? nextButtonContinueText :  nextButtonText}
                 </button>
               )}
             </div>

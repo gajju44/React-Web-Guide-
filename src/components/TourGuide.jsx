@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import TourCursor from './TourCursor';
-
 
 const TourTooltip = ({ isVisible, onClose, theme }) => {
   if (!isVisible) return null;
@@ -23,12 +22,52 @@ const TourTooltip = ({ isVisible, onClose, theme }) => {
         </button>
         <div className="text-sm font-medium text-center flex items-center gap-2">
           <span>Start your web tour here!</span>
-        
         </div>
         <div className={`absolute bottom-0 right-2 transform  translate-y-1/2 rotate-45 w-2 h-2 ${theme === "Dark" ? "bg-black/90" : "bg-white/90"}`}></div>
       </div>
     </div>
   );
+};
+
+// Enhanced function to find the scrollable container
+const findScrollableContainer = (element) => {
+  if (!element || element === document.body) return window;
+  
+  const { overflow, overflowY, overflowX } = window.getComputedStyle(element);
+  const hasScrollableContent = element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+  const isScrollable = ['auto', 'scroll'].some(value => 
+    [overflow, overflowY, overflowX].includes(value)
+  );
+  
+  if (isScrollable && hasScrollableContent) {
+    return element;
+  }
+  
+  return findScrollableContainer(element.parentElement);
+};
+
+// Enhanced viewport check for both window and container scrolling
+const isElementInViewport = (element, container = window) => {
+  if (!element) return false;
+  
+  const rect = element.getBoundingClientRect();
+  
+  if (container === window) {
+    return (
+      rect.top >= -100 &&
+      rect.bottom <= window.innerHeight + 100 &&
+      rect.left >= -100 &&
+      rect.right <= window.innerWidth + 100
+    );
+  } else {
+    const containerRect = container.getBoundingClientRect();
+    return (
+      rect.top >= containerRect.top - 100 &&
+      rect.bottom <= containerRect.bottom + 100 &&
+      rect.left >= containerRect.left - 100 &&
+      rect.right <= containerRect.right + 100
+    );
+  }
 };
 
 const TourGuide = ({ 
@@ -51,8 +90,8 @@ const TourGuide = ({
   expandedButtonClassName = ` ${Theme === "Dark" ? "text-white bg-black/90" : "bg-white/90 text-black"}  border   px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105`,
   minimizedButtonClassName = ` ${Theme === "Dark" ? "text-white bg-black/90" : "bg-white/90 text-black"}  border  px-2 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105`,
   buttonStyle = {},
-  CloseButtonText= <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>,
-  ExpandButtonText= <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2 lucide-maximize-2" aria-hidden="true"><path d="M15 3h6v6"></path><path d="m21 3-7 7"></path><path d="m3 21 7-7"></path><path d="M9 21H3v-6"></path></svg>,
+  CloseButtonText= <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>,
+  ExpandButtonText= <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-maximize2 lucide-maximize-2" aria-hidden="true"><path d="M15 3h6v6"></path><path d="m21 3-7 7"></path><path d="m3 21 7-7"></path><path d="M9 21H3v-6"></path></svg>,
   minimizedButtonStyle = {
     width: '3rem',
     height: '3rem',
@@ -63,15 +102,15 @@ const TourGuide = ({
   closeButtonStyle = {},
   expandButtonStyle = {},
   cursorImage = null,
-  
   messageBoxStyle = {},
   cursorStyle = {},
   nextButtonText = "Next",
   nextButtonContinueText= "Continue",
-  nextButtonClassName ,
+  nextButtonClassName,
   nextButtonStyle = {},
   messageClass,
- 
+  // New prop to specify scrollable container selector or element
+  scrollContainer = null,
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isActive, setIsActive] = useState(false);
@@ -80,6 +119,30 @@ const TourGuide = ({
   const [isOffScreen, setIsOffScreen] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
   const [showStartTooltip, setShowStartTooltip] = useState(showTooltip);
+  const [scrollableContainer, setScrollableContainer] = useState(null);
+  const containerRef = useRef(null);
+
+  // Find the appropriate scrollable container
+  useEffect(() => {
+    if (!isActive || !steps[currentStep]?.ref.current) return;
+
+    let container;
+    
+    if (scrollContainer) {
+      // Use provided container (can be selector string or element)
+      if (typeof scrollContainer === 'string') {
+        container = document.querySelector(scrollContainer);
+      } else {
+        container = scrollContainer;
+      }
+    } else {
+      // Auto-detect scrollable container
+      container = findScrollableContainer(steps[currentStep].ref.current);
+    }
+    
+    setScrollableContainer(container);
+    containerRef.current = container;
+  }, [isActive, currentStep, scrollContainer]);
 
   const updateCursorPosition = () => {
     if (!isActive || currentStep >= steps.length) return;
@@ -92,25 +155,63 @@ const TourGuide = ({
       
       setCursorPosition({ x, y });
       
-      // Check if element is off screen
-      const isVisible = rect.top >= -100 && rect.bottom <= window.innerHeight + 100;
+      // Check if element is visible within its container
+      const container = containerRef.current || window;
+      const isVisible = isElementInViewport(step.ref.current, container);
       setIsOffScreen(!isVisible);
     }
   };
 
-  const scrollToCurrentStep = async () => {
-    if (currentStep < steps.length && steps[currentStep].ref.current) {
-      setShowCursor(false);
-      
-      steps[currentStep].ref.current.scrollIntoView({ 
+  const scrollToElement = (element, container) => {
+    if (!element) return;
+
+    if (container === window) {
+     
+      element.scrollIntoView({ 
         behavior: 'smooth', 
-        block: 'center'
+        block: 'center',
+        inline: 'center'
       });
+    } else if (container && container.scrollTo) {
       
-      setTimeout(() => {
-        setShowCursor(true);
-        updateCursorPosition();
-      }, 800);
+      const containerRect = container.getBoundingClientRect();
+      const elementRect = element.getBoundingClientRect();
+      
+      const scrollTop = container.scrollTop + elementRect.top - containerRect.top - container.clientHeight / 2 + elementRect.height / 2;
+      const scrollLeft = container.scrollLeft + elementRect.left - containerRect.left - container.clientWidth / 2 + elementRect.width / 2;
+      
+      container.scrollTo({
+        top: scrollTop,
+        left: scrollLeft,
+        behavior: 'smooth'
+      });
+    } else {
+      
+      element.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center',
+        inline: 'center'
+      });
+    }
+  };
+
+  const handleNextClick = () => {
+    if (currentStep < steps.length - 1) {
+      const nextElement = steps[currentStep + 1]?.ref.current;
+      const container = containerRef.current || window;
+      
+      if (nextElement && !isElementInViewport(nextElement, container)) {
+        scrollToElement(nextElement, container);
+        
+        setTimeout(() => {
+          setIsOffScreen(false);
+          nextStep();
+        }, 400); 
+      } else {
+        nextStep();
+      }
+    } else {
+      nextStep();
     }
   };
 
@@ -119,17 +220,27 @@ const TourGuide = ({
     
     updateCursorPosition();
     
+    const container = containerRef.current;
     const handleScroll = () => updateCursorPosition();
     const handleResize = () => updateCursorPosition();
     
+    // Add scroll listeners to both window and container
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
+    
+    if (container && container !== window) {
+      container.addEventListener('scroll', handleScroll, { passive: true });
+    }
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
+      
+      if (container && container !== window) {
+        container.removeEventListener('scroll', handleScroll);
+      }
     };
-  }, [isActive, currentStep]);
+  }, [isActive, currentStep, scrollableContainer]);
 
   const nextStep = () => {
     if (currentStep < steps.length - 1) {
@@ -231,9 +342,9 @@ const TourGuide = ({
             Theme={Theme}
             name={steps[currentStep]?.name || "Guide"}
             color={steps[currentStep]?.color || "#ff6b6b"}
-            message={isOffScreen ? "Scroll to see this step!" : steps[currentStep]?.message}
+            message={isOffScreen ? "Hey the tour is incomplete!" : steps[currentStep]?.message}
             isVisible={showCursor}
-            onClick={isOffScreen ? scrollToCurrentStep : nextStep}
+            onClick={handleNextClick}
             showNext={true}
             isOffScreen={isOffScreen}
             cursorImage={cursorImage}
@@ -244,7 +355,8 @@ const TourGuide = ({
             nextButtonClassName={nextButtonClassName}
             nextButtonStyle={nextButtonStyle}
             messageClass={messageClass}
-             CursorMessageGap={steps[currentStep]?.CursorMessageGap || 0}
+            CursorMessageGap={steps[currentStep]?.CursorMessageGap || 0}
+            isNextStepOffScreen={currentStep < steps.length - 1 && steps[currentStep + 1]?.ref.current && !isElementInViewport(steps[currentStep + 1].ref.current, containerRef.current || window)}
           />
           
           {showProgress && (
@@ -267,4 +379,4 @@ const TourGuide = ({
   );
 };
 
-export default TourGuide; 
+export default TourGuide;

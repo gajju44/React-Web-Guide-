@@ -5,7 +5,7 @@ import logo from '@/public/logo.svg'
 import Image from 'next/image';
 function Navbar() {
   return (
-    <div className='flex justify-between fixed w-full top-0 items-center p-4 text-white'>
+    <div className='flex justify-between z-[99999] fixed w-full top-0 items-center p-4 pb-1 bg-black/40 text-white backdrop-blur-md'>
       
         <a href="" className='flex items-center justify-center gap-3'> <Image src={logo} alt='logo' /> PIXPORT</a>
       <div className=' gap-4 hidden lg:flex'>
