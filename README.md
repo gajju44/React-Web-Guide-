@@ -124,6 +124,7 @@ Customize **React Web Guide** with these props:
 | `closeButtonStyle` | Object | `{}` | Custom styles for close button |
 | `expandButtonStyle` | Object | `{}` | Custom styles for expand button |
 | `cursorImage` | String | `null` | Custom cursor image URL |
+| `CustomCursorClass` | String | `null` | CSS classes for custom cursor |
 | `messageBoxStyle` | Object | `{}` | Custom styles for message box |
 | `cursorStyle` | Object | `{}` | Custom styles for cursor |
 | `nextButtonText` | String | "Next →" | Text for next button |

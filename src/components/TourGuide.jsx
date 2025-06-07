@@ -118,6 +118,7 @@ const TourGuide = ({
   messageClass,
   // New prop to specify scrollable container selector or element
   scrollContainer = null,
+  CustomCursorClass,
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isActive, setIsActive] = useState(false);
@@ -394,7 +395,7 @@ const TourGuide = ({
             nextButtonStyle={nextButtonStyle}
             messageClass={messageClass}
             CursorMessageGap={steps[currentStep]?.CursorMessageGap || 0}
-            isNextStepOffScreen={currentStep < steps.length - 1 && steps[currentStep + 1]?.ref.current && !isElementInViewport(steps[currentStep + 1].ref.current, containerRef.current || window)}
+           CustomCursorClass={CustomCursorClass}
           />
           
           {showProgress && (
