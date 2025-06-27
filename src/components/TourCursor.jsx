@@ -82,7 +82,8 @@ const TourCursor = ({
         {cursorImage ? (
           <img 
             src={cursorImage} 
-            alt="Custom cursor" 
+            alt="Custom cursor"
+            loading='eager' 
             className={` ${CustomCursorClass} w-6 h-6 drop-shadow-lg ${messagePosition.top ? '-translate-y-5' : ''}  z-[99999999999999999]`}
             style={{
               filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
